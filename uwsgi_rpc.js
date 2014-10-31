@@ -60,7 +60,8 @@ uwsgi_rpc.prototype.serveraddr = function(addr) {
 uwsgi_rpc.prototype.exec = function() {
 	// var args = Array.prototype.slice.call(arguments,0)[0];
 	// console.log('args: '+args);
-	var res = this.u_send_request(this.uwsgi_pkt(173,0,arguments));
+	var args = Array.prototype.slice.call(arguments,0)[0];
+	var res = this.u_send_request(this.uwsgi_pkt(173,0,args));
 	console.log('res'+res);
 	return(res);
 	}
