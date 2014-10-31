@@ -60,9 +60,11 @@ uwsgi_rpc.prototype.serveraddr = function(addr) {
 uwsgi_rpc.prototype.exec = function() {
 	// var args = Array.prototype.slice.call(arguments,0)[0];
 	// console.log('args: '+args);
-	var args = Array.prototype.slice.call(arguments,0)[0];
-	var res = this.u_send_request(this.uwsgi_pkt(173,0,args));
-	console.log('res'+res);
+	var args = Array.prototype.slice.call(arguments,0);
+	var pkt = this.uwsgi_pkt(173,0,args);
+	console.log(pkt);
+	var res = this.u_send_request(pkt);
+	console.log('res '+res);
 	return(res);
 	}
 
@@ -73,6 +75,7 @@ uwsgi_rpc.prototype.uwsgi_pkt = function(modifier1,modifier2) {
 	var parts = new Array;	
 	for (var i = 0; i<args.length; i++) {
 		var str = args[i].toString("utf8");
+		console.log('str: '+str);
 		var itembuf = new Buffer( 2 + Buffer.byteLength(str,"utf8") );		 
 		itembuf.writeUInt16LE( Buffer.byteLength(str,"utf8"), 0);
 		itembuf.write( str, 2, "utf8");
